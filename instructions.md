@@ -28,6 +28,8 @@ StartOS adds secure user-management actions, blocks startup until user credentia
 
 ## Managing passwords and users
 
+User actions work while Radicale is stopped or running and repair the permissions of existing configuration and credential files before updating credentials.
+
 - Run **Add or Update User** with an existing username to generate a replacement password. The previous password stops working immediately.
 - Run **Delete User** to remove a login. Its collections and shares remain stored, and adding the same username later restores access.
 - Deleting the final user stops Radicale and raises the first-user task. Add a user before starting the service again.

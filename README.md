@@ -76,7 +76,7 @@ A malformed nonempty credential file raises a separate critical repair task. Its
 
 ## Actions
 
-User actions modify `/var/lib/radicale/users` through a temporary container. They normally complete within seconds without restarting or interrupting Radicale.
+User actions modify `/var/lib/radicale/users` through a temporary container. The same preparation command used before daemon startup repairs directory ownership and permissions, plus ownership and permissions of existing configuration and credential files, before each update. They normally complete within seconds without restarting or interrupting Radicale.
 
 ### Add or Update User
 

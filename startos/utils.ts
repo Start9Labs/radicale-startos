@@ -13,17 +13,22 @@ export const mount = sdk.Mounts.of().mountVolume({
   readonly: false,
 })
 
-export const prepareDataCommand = () => [
-  'install',
-  '-d',
-  '-m',
-  '0700',
-  '-o',
-  '1000',
-  '-g',
-  '1000',
+export const prepareDataCommand = (): [string, ...string[]] => [
+  'sh',
+  '-c',
+  `set -eu
+install -d -m 0700 -o 1000 -g 1000 "$1" "$2"
+for file in "$3" "$4"; do
+  if [ -e "$file" ]; then
+    chown 1000:1000 "$file"
+    chmod 0600 "$file"
+  fi
+done`,
+  'sh',
   dataPath,
   collectionsPath,
+  configPath,
+  usersPath,
 ]
 
 export const atomicUserUpdateCommand = (
