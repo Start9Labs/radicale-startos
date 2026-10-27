@@ -1,12 +1,10 @@
-import { utils } from '@start9labs/start-sdk'
+import { T, utils } from '@start9labs/start-sdk'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
 import { atomicUserUpdateCommand, mount, prepareDataCommand } from '../utils'
 
-type PackageEffects = Parameters<typeof sdk.SubContainer.withTemp>[0]
-
 export const writeUserCredential = async (
-  effects: PackageEffects,
+  effects: T.Effects,
   username: string,
   recreate: boolean,
 ): Promise<string> => {
@@ -54,6 +52,7 @@ export const credentialResult = (username: string, password: string) => ({
         masked: false,
         copyable: true,
         qr: false,
+        launchable: false,
       },
       {
         type: 'single' as const,
@@ -63,6 +62,7 @@ export const credentialResult = (username: string, password: string) => ({
         masked: true,
         copyable: true,
         qr: false,
+        launchable: false,
       },
     ],
   },

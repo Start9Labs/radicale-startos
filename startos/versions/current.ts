@@ -1,7 +1,7 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.8.0:0',
+  version: '3.9.0:0',
   releaseNotes: {
     en_US: 'Initial release for StartOS',
     es_ES: 'Lanzamiento inicial para StartOS',

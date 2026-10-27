@@ -2,14 +2,8 @@
 
 ## Documentation
 
-- [Radicale documentation](https://radicale.org/v3.html) — server behavior, DAV clients, collections, authentication, and troubleshooting
+- [Radicale documentation](https://github.com/Kozea/Radicale/blob/master/DOCUMENTATION.md) — server behavior, DAV clients, collections, authentication, and troubleshooting
 - [Collection sharing](https://github.com/Kozea/Radicale/blob/master/SHARING.md) — sharing concepts, permissions, and recipient acceptance
-
-## What you get on StartOS
-
-Radicale synchronizes calendars and address books over CalDAV and CardDAV. Its Web Interface creates and manages collections, imports or exports collection data, and shares calendars or address books between Radicale users. Events and contacts are viewed and edited with your preferred DAV client.
-
-StartOS adds secure user-management actions, blocks startup until user credentials exist, detects malformed credential files, and backs up credentials, collections, and shares together.
 
 ## Getting set up
 
@@ -28,14 +22,16 @@ StartOS adds secure user-management actions, blocks startup until user credentia
 
 ## Managing passwords and users
 
-User actions work while Radicale is stopped or running and repair the permissions of existing configuration and credential files before updating credentials.
+These actions work whether Radicale is running or stopped.
 
 - Run **Add or Update User** with an existing username to generate a replacement password. The previous password stops working immediately.
 - Run **Delete User** to remove a login. Its collections and shares remain stored, and adding the same username later restores access.
 - Deleting the final user stops Radicale and raises the first-user task. Add a user before starting the service again.
-- If **Repair Radicale user credentials** appears, run **Reset User Credentials**. This replaces every login with one new account while preserving calendars, address books, and shares.
+- If the **Repair Radicale user credentials** task appears, run it. This replaces every login with one new account while preserving calendars, address books, and shares.
 
 ## Connecting DAV clients
+
+The Web Interface manages calendars and address books but not their contents; view and edit events and contacts in a DAV client.
 
 Use the **DAV** interface URL as the server URL. Radicale also serves standard `/.well-known/caldav` and `/.well-known/carddav` discovery paths. Enter the Radicale username and generated password when your client asks for credentials.
 
