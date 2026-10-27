@@ -1,8 +1,7 @@
 .git
 .gitmodules
-.helix
-.startos
-javascript
 node_modules
-upstream-project
+javascript
+ncc-cache
+docker-images
 *.s9pk

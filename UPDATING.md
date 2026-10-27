@@ -2,12 +2,12 @@
 
 Radicale is built as a thin derivative of the upstream-maintained GHCR image. The image tag and multi-architecture index digest are pinned in `Dockerfile`, and `upstream-project` pins the source revision used to maintain the patch in `patches/`.
 
-Current upstream release: `3.8.0` (`v3.8.0` tag)
+Current upstream release: `3.9.0` (`v3.9.0` tag)
 
 Current image index:
 
 ```text
-ghcr.io/kozea/radicale:3.8.0@sha256:0d60d544710bda0fa83bfdea685db731b6cbf74e12d7f22b4997e9cff3a50468
+ghcr.io/kozea/radicale:3.9.0@sha256:f68a99907f44b09dc12d81c3a1cdf221e3c55f08ceccfa17dc012991be9fb397
 ```
 
 ## Determining the upstream version
@@ -21,7 +21,7 @@ ghcr.io/kozea/radicale:3.8.0@sha256:0d60d544710bda0fa83bfdea685db731b6cbf74e12d7
 2. Confirm the fixed release tag exists on GHCR and resolve its index digest:
 
    ```sh
-   VERSION=3.8.0
+   VERSION=3.9.0
    TOKEN_JSON=$(curl -sS --fail 'https://ghcr.io/token?scope=repository:kozea/radicale:pull&service=ghcr.io') || exit 1
    TOKEN=$(printf '%s\n' "$TOKEN_JSON" | jq -er '.token | select(type == "string" and length > 0)') || exit 1
    HEADERS=$(curl -sS --fail -D - -o /dev/null \
@@ -51,10 +51,10 @@ ghcr.io/kozea/radicale:3.8.0@sha256:0d60d544710bda0fa83bfdea685db731b6cbf74e12d7
 ## Applying the bump
 
 1. Update the release tag and index digest in `Dockerfile`, then move `upstream-project` to the matching `vX.Y.Z` tag.
-2. Check whether upstream now validates absolute DAV `MOVE` destinations from `Host` plus `X-Forwarded-Proto`. Drop `patches/0001-honor-proxied-host-for-move-authority.patch` if the fix is included; otherwise refresh it against the pinned source and confirm `git apply --check` succeeds during the image build.
+2. Check whether upstream's `get_server_netloc` (`radicale/utils.py`) now derives the authority from `Host` plus `X-Forwarded-Proto` when no `X-Forwarded-Host` is sent — StartOS's proxy sends only `X-Forwarded-Proto`. Drop `patches/0001-honor-proxied-host-for-move-authority.patch` if the fix is included; otherwise refresh it against the pinned source and confirm `git apply --check` succeeds during the image build.
 3. Review upstream changes to authentication, username validation, configuration keys, sharing record format, web routes, storage, and the image's user, entrypoint, and persistent paths.
 4. Update `startos/versions/current.ts` in place: change its version and release notes. Create a separate version file only when this package introduces a real migration.
-5. Run `npm ci`, `npm run check`, `npm run build`, and `make`.
+5. Run `npm ci` and `make`.
 6. Upgrade a populated installation and run the upstream storage check while stopped:
 
    ```sh

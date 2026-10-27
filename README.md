@@ -9,7 +9,7 @@
 > documentation is accurate and fully applicable — see the Documentation section of
 > `instructions.md` for links.
 
-Radicale is a lightweight CalDAV and CardDAV server for calendars and contacts. See the [upstream Radicale repository](https://github.com/Kozea/Radicale).
+Radicale is a lightweight CalDAV and CardDAV server for calendars and contacts.
 
 ---
 
@@ -84,7 +84,7 @@ Run when creating an account or rotating its credentials. Each run atomically wr
 
 ### Reset User Credentials
 
-Explicitly replaces every login record with one newly generated account and displays its password once. Calendars, address books, and shares remain unchanged.
+Hidden, and not user-facing, unless the users file is malformed; the **Repair Radicale user credentials** task surfaces it. Explicitly replaces every login record with one newly generated account and displays its password once. Calendars, address books, and shares remain unchanged.
 
 ### Delete User
 

@@ -1,5 +1,5 @@
 diff --git a/radicale/app/move.py b/radicale/app/move.py
-index 4e4b7cd1..bca428ec 100644
+index 6bbd4ccb..651f88a6 100644
 --- a/radicale/app/move.py
 +++ b/radicale/app/move.py
 @@ -22,6 +22,7 @@ import errno
@@ -9,28 +9,9 @@ index 4e4b7cd1..bca428ec 100644
 +from ipaddress import ip_address
  from urllib.parse import unquote, urlparse
  
- from radicale import httputils, pathutils, sharing, storage, types
-@@ -31,13 +32,13 @@ from radicale.log import logger
- 
- 
- def get_server_netloc(environ: types.WSGIEnviron, force_port: bool = False):
--    if environ.get("HTTP_X_FORWARDED_HOST"):
--        host = environ["HTTP_X_FORWARDED_HOST"]
--        proto = environ.get("HTTP_X_FORWARDED_PROTO") or "http"
-+    if environ.get("HTTP_HOST"):
-+        host = environ["HTTP_HOST"]
-+        proto = (environ.get("HTTP_X_FORWARDED_PROTO") or
-+                 environ["wsgi.url_scheme"])
-         port = "443" if proto == "https" else "80"
--        port = environ.get("HTTP_X_FORWARDED_PORT") or port
-     else:
--        host = environ.get("HTTP_HOST") or environ["SERVER_NAME"]
-+        host = environ["SERVER_NAME"]
-         proto = environ["wsgi.url_scheme"]
-         port = environ["SERVER_PORT"]
-     if (not force_port and port == ("443" if proto == "https" else "80") or
-@@ -46,6 +47,26 @@ def get_server_netloc(environ: types.WSGIEnviron, force_port: bool = False):
-     return host + ":" + port
+ from radicale import httputils, pathutils, storage, types, utils
+@@ -30,6 +31,26 @@ from radicale.app.base import Access, ApplicationBase
+ from radicale.log import logger
  
  
 +def _normalize_netloc(netloc: str, scheme: str):
@@ -56,8 +37,8 @@ index 4e4b7cd1..bca428ec 100644
  class ApplicationPartMove(ApplicationBase):
  
      def do_MOVE(self, environ: types.WSGIEnviron, base_prefix: str,
-@@ -53,19 +74,22 @@ class ApplicationPartMove(ApplicationBase):
-         """Manage MOVE request."""
+@@ -38,19 +59,23 @@ class ApplicationPartMove(ApplicationBase):
+         actor = user
          raw_dest = environ.get("HTTP_DESTINATION", "")
  
 -        # Decode URL-encoded characters (e.g. %40 -> @) before parsing
@@ -75,10 +56,11 @@ index 4e4b7cd1..bca428ec 100644
 -            if to_url.port is None:
 -                to_netloc_with_port += (":443" if to_url.scheme == "https"
 -                                        else ":80")
--            if to_netloc_with_port != get_server_netloc(environ, force_port=True):
+-            if to_netloc_with_port != utils.get_server_netloc(environ, force_port=True):
 +            destination_netloc = _normalize_netloc(to_url.netloc, to_url.scheme)
 +            server_netloc = _normalize_netloc(
-+                get_server_netloc(environ, force_port=True), to_url.scheme)
++                utils.get_server_netloc(environ, force_port=True),
++                to_url.scheme)
 +            if destination_netloc is None or server_netloc is None:
 +                logger.warning("Invalid destination address: %r", raw_dest)
 +                return httputils.BAD_REQUEST
@@ -88,3 +70,26 @@ index 4e4b7cd1..bca428ec 100644
                  return httputils.REMOTE_DESTINATION
  
          to_user = user
+diff --git a/radicale/utils.py b/radicale/utils.py
+index d7b0ea84..aa4b9915 100644
+--- a/radicale/utils.py
++++ b/radicale/utils.py
+@@ -592,13 +592,13 @@ def sha256_bytes(content: bytes) -> str:
+ 
+ 
+ def get_server_netloc(environ: types.WSGIEnviron, force_port: bool = False):
+-    if environ.get("HTTP_X_FORWARDED_HOST"):
+-        host = environ["HTTP_X_FORWARDED_HOST"]
+-        proto = environ.get("HTTP_X_FORWARDED_PROTO") or "http"
++    if environ.get("HTTP_HOST"):
++        host = environ["HTTP_HOST"]
++        proto = (environ.get("HTTP_X_FORWARDED_PROTO") or
++                 environ["wsgi.url_scheme"])
+         port = "443" if proto == "https" else "80"
+-        port = environ.get("HTTP_X_FORWARDED_PORT") or port
+     else:
+-        host = environ.get("HTTP_HOST") or environ["SERVER_NAME"]
++        host = environ["SERVER_NAME"]
+         proto = environ["wsgi.url_scheme"]
+         port = environ["SERVER_PORT"]
+     if (not force_port and port == ("443" if proto == "https" else "80") or
