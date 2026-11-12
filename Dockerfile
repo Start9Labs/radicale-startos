@@ -1,4 +1,4 @@
-FROM ghcr.io/kozea/radicale:3.9.0@sha256:f68a99907f44b09dc12d81c3a1cdf221e3c55f08ceccfa17dc012991be9fb397
+FROM ghcr.io/kozea/radicale:3.9.1@sha256:e5e53d3f77566a8b4ca3e307d950e75c9b82b38d11e953c0394a342e3aa25c90
 
 USER root
 COPY patches/0001-honor-proxied-host-for-move-authority.patch /tmp/radicale-move.patch
