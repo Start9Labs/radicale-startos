@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '3.9.1:0',
+  version: '3.9.2:0',
   releaseNotes: {
     en_US:
-      'Updated Radicale to 3.9.1 with security fixes for authentication and storage hooks, stricter sharing permissions, and improved free/busy views. Requires StartOS 0.4.2 or newer. Full release notes: https://github.com/Kozea/Radicale/releases/tag/v3.9.1',
+      'Updated Radicale to 3.9.2. Calendar and contact clients now reliably notice changes instead of occasionally missing them, a damaged item no longer breaks listing of its collection, and searches over endlessly repeating events stay bounded. Also includes performance improvements. Full release notes: https://github.com/Kozea/Radicale/releases/tag/v3.9.2',
     es_ES:
-      'Radicale actualizado a 3.9.1 con correcciones de seguridad en la autenticación y los hooks de almacenamiento, permisos de uso compartido más estrictos y vistas de disponibilidad mejoradas. Requiere StartOS 0.4.2 o posterior. Notas completas: https://github.com/Kozea/Radicale/releases/tag/v3.9.1',
+      'Radicale actualizado a 3.9.2. Los clientes de calendario y contactos ahora detectan los cambios de forma fiable en lugar de pasarlos por alto ocasionalmente, un elemento dañado ya no impide listar su colección y las búsquedas sobre eventos que se repiten indefinidamente se mantienen acotadas. Incluye además mejoras de rendimiento. Notas completas: https://github.com/Kozea/Radicale/releases/tag/v3.9.2',
     de_DE:
-      'Radicale auf 3.9.1 aktualisiert: Sicherheitskorrekturen für Authentifizierung und Speicher-Hooks, strengere Freigabeberechtigungen und verbesserte Frei/Belegt-Ansichten. Erfordert StartOS 0.4.2 oder neuer. Vollständige Versionshinweise: https://github.com/Kozea/Radicale/releases/tag/v3.9.1',
+      'Radicale auf 3.9.2 aktualisiert. Kalender- und Kontakt-Clients erkennen Änderungen jetzt zuverlässig, statt sie gelegentlich zu übersehen, ein beschädigter Eintrag verhindert nicht mehr das Auflisten seiner Sammlung, und Suchen über endlos wiederkehrende Termine bleiben begrenzt. Außerdem Leistungsverbesserungen. Vollständige Versionshinweise: https://github.com/Kozea/Radicale/releases/tag/v3.9.2',
     pl_PL:
-      'Zaktualizowano Radicale do 3.9.1: poprawki bezpieczeństwa uwierzytelniania i hooków przechowywania danych, bardziej rygorystyczne uprawnienia udostępniania oraz ulepszone widoki dostępności. Wymaga StartOS 0.4.2 lub nowszego. Pełne informacje: https://github.com/Kozea/Radicale/releases/tag/v3.9.1',
+      'Zaktualizowano Radicale do 3.9.2. Klienci kalendarzy i kontaktów niezawodnie wykrywają teraz zmiany, zamiast czasem je pomijać, uszkodzony element nie blokuje już wyświetlania swojej kolekcji, a wyszukiwanie w wydarzeniach powtarzających się bez końca pozostaje ograniczone. Zawiera też poprawki wydajności. Pełne informacje: https://github.com/Kozea/Radicale/releases/tag/v3.9.2',
     fr_FR:
-      'Radicale passe à la version 3.9.1 avec des correctifs de sécurité pour l’authentification et les hooks de stockage, des permissions de partage plus strictes et des vues de disponibilité améliorées. Nécessite StartOS 0.4.2 ou ultérieur. Notes complètes : https://github.com/Kozea/Radicale/releases/tag/v3.9.1',
+      'Radicale passe à la version 3.9.2. Les clients de calendrier et de contacts détectent désormais les modifications de manière fiable au lieu de les manquer parfois, un élément endommagé n’empêche plus l’affichage de sa collection et les recherches sur des événements récurrents sans fin restent bornées. Inclut également des améliorations de performances. Notes complètes : https://github.com/Kozea/Radicale/releases/tag/v3.9.2',
   },
   migrations: {
     up: async () => {},
