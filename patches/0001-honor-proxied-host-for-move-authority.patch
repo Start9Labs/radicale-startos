@@ -1,8 +1,8 @@
 diff --git a/radicale/app/move.py b/radicale/app/move.py
-index 6bbd4ccb..651f88a6 100644
+index cc165fc5..b8e5d7c2 100644
 --- a/radicale/app/move.py
 +++ b/radicale/app/move.py
-@@ -22,6 +22,7 @@ import errno
+@@ -23,6 +23,7 @@ import logging
  import posixpath
  import re
  from http import client
@@ -10,7 +10,7 @@ index 6bbd4ccb..651f88a6 100644
  from urllib.parse import unquote, urlparse
  
  from radicale import httputils, pathutils, storage, types, utils
-@@ -30,6 +31,26 @@ from radicale.app.base import Access, ApplicationBase
+@@ -31,6 +32,26 @@ from radicale.app.base import Access, ApplicationBase
  from radicale.log import logger
  
  
@@ -37,7 +37,7 @@ index 6bbd4ccb..651f88a6 100644
  class ApplicationPartMove(ApplicationBase):
  
      def do_MOVE(self, environ: types.WSGIEnviron, base_prefix: str,
-@@ -38,19 +59,23 @@ class ApplicationPartMove(ApplicationBase):
+@@ -39,19 +60,23 @@ class ApplicationPartMove(ApplicationBase):
          actor = user
          raw_dest = environ.get("HTTP_DESTINATION", "")
  
@@ -71,10 +71,10 @@ index 6bbd4ccb..651f88a6 100644
  
          to_user = user
 diff --git a/radicale/utils.py b/radicale/utils.py
-index d7b0ea84..aa4b9915 100644
+index 8cd866b5..4bf51db9 100644
 --- a/radicale/utils.py
 +++ b/radicale/utils.py
-@@ -592,13 +592,13 @@ def sha256_bytes(content: bytes) -> str:
+@@ -593,13 +593,13 @@ def sha256_bytes(content: bytes) -> str:
  
  
  def get_server_netloc(environ: types.WSGIEnviron, force_port: bool = False):
